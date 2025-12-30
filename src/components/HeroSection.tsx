@@ -24,15 +24,11 @@ const HeroSection = () => {
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
           {/* Logo animation */}
           <div className="mb-8 animate-fade-in-up">
-            <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-primary/20 via-background to-primary/10 p-1 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3),0_4px_12px_rgba(0,0,0,0.2)] animate-float">
-              <div className="w-full h-full rounded-full bg-gradient-to-br from-background via-navy-light to-background flex items-center justify-center shadow-[inset_0_-2px_8px_rgba(255,215,0,0.15),inset_0_2px_8px_rgba(0,0,0,0.3)]">
-                <img
-                  src={logo}
-                  alt="Kingdom FM Xtra"
-                  className="w-[85%] h-[85%] object-contain mix-blend-luminosity opacity-90 drop-shadow-[0_1px_1px_rgba(255,215,0,0.3)]"
-                />
-              </div>
-            </div>
+            <img
+              src={logo}
+              alt="Kingdom FM Xtra"
+              className="w-32 h-32 md:w-40 md:h-40 object-contain animate-float mix-blend-multiply dark:mix-blend-screen dark:invert"
+            />
           </div>
 
           {/* Main heading */}

@@ -33,15 +33,11 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <a href="#home" className="flex items-center gap-3 group">
-            <div className="relative h-14 w-14 rounded-full bg-gradient-to-br from-primary/20 via-background to-primary/10 p-0.5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3),0_2px_6px_rgba(0,0,0,0.2)] transition-transform duration-300 group-hover:scale-105">
-              <div className="w-full h-full rounded-full bg-gradient-to-br from-background via-navy-light to-background flex items-center justify-center shadow-[inset_0_-1px_4px_rgba(255,215,0,0.15),inset_0_1px_4px_rgba(0,0,0,0.3)]">
-                <img
-                  src={logo}
-                  alt="Kingdom FM Xtra"
-                  className="w-[85%] h-[85%] object-contain mix-blend-luminosity opacity-90 drop-shadow-[0_1px_1px_rgba(255,215,0,0.3)]"
-                />
-              </div>
-            </div>
+            <img
+              src={logo}
+              alt="Kingdom FM Xtra"
+              className="h-14 w-auto transition-transform duration-300 group-hover:scale-105 mix-blend-multiply dark:mix-blend-screen dark:invert"
+            />
             <div className="hidden sm:block">
               <span className="text-xl font-heading font-bold text-foreground">
                 Kingdom FM
