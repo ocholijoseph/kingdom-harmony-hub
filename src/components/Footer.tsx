@@ -10,15 +10,11 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo and tagline */}
           <div className="flex items-center gap-4">
-            <div className="relative h-16 w-16 rounded-full bg-gradient-to-br from-primary/20 via-background to-primary/10 p-0.5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3),0_2px_6px_rgba(0,0,0,0.2)]">
-              <div className="w-full h-full rounded-full bg-gradient-to-br from-background via-navy-light to-background flex items-center justify-center shadow-[inset_0_-1px_4px_rgba(255,215,0,0.15),inset_0_1px_4px_rgba(0,0,0,0.3)]">
-                <img
-                  src={logo}
-                  alt="Kingdom FM Xtra"
-                  className="w-[85%] h-[85%] object-contain mix-blend-luminosity opacity-90 drop-shadow-[0_1px_1px_rgba(255,215,0,0.3)]"
-                />
-              </div>
-            </div>
+            <img
+              src={logo}
+              alt="Kingdom FM Xtra"
+              className="h-16 w-auto mix-blend-multiply dark:mix-blend-screen dark:invert"
+            />
             <div>
               <h3 className="font-heading text-xl font-bold text-foreground">
                 Kingdom FM Xtra
