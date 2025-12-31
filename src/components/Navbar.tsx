@@ -36,7 +36,7 @@ const Navbar = () => {
             <img
               src={logo}
               alt="Kingdom FM Xtra"
-              className="h-14 w-auto transition-transform duration-300 group-hover:scale-105 mix-blend-multiply dark:mix-blend-screen dark:invert"
+              className="h-14 w-auto transition-transform duration-300 group-hover:scale-105"
             />
             <div className="hidden sm:block">
               <span className="text-xl font-heading font-bold text-foreground">
