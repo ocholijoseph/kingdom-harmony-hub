@@ -13,7 +13,7 @@ const Footer = () => {
             <img
               src={logo}
               alt="Kingdom FM Xtra"
-              className="h-16 w-auto mix-blend-multiply dark:mix-blend-screen dark:invert"
+              className="h-16 w-auto"
             />
             <div>
               <h3 className="font-heading text-xl font-bold text-foreground">

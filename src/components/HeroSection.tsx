@@ -27,7 +27,7 @@ const HeroSection = () => {
             <img
               src={logo}
               alt="Kingdom FM Xtra"
-              className="w-32 h-32 md:w-40 md:h-40 object-contain animate-float mix-blend-multiply dark:mix-blend-screen dark:invert"
+              className="w-32 h-32 md:w-40 md:h-40 object-contain animate-float"
             />
           </div>
 
