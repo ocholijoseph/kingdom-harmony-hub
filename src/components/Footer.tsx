@@ -10,11 +10,13 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo and tagline */}
           <div className="flex items-center gap-4">
-            <img
-              src={logo}
-              alt="Kingdom FM Xtra"
-              className="h-16 w-auto"
-            />
+            <div className="h-14 w-14 rounded-full bg-gray-100/90 dark:bg-gray-200/95 flex items-center justify-center shadow-md">
+              <img
+                src={logo}
+                alt="Kingdom FM Xtra"
+                className="h-12 w-auto"
+              />
+            </div>
             <div>
               <h3 className="font-heading text-xl font-bold text-foreground">
                 Kingdom FM Xtra

@@ -33,11 +33,13 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <a href="#home" className="flex items-center gap-3 group">
-            <img
-              src={logo}
-              alt="Kingdom FM Xtra"
-              className="h-14 w-auto transition-transform duration-300 group-hover:scale-105"
-            />
+            <div className="h-12 w-12 rounded-full bg-gray-100/90 dark:bg-gray-200/95 flex items-center justify-center shadow-md transition-transform duration-300 group-hover:scale-105">
+              <img
+                src={logo}
+                alt="Kingdom FM Xtra"
+                className="h-10 w-auto"
+              />
+            </div>
             <div className="hidden sm:block">
               <span className="text-xl font-heading font-bold text-foreground">
                 Kingdom FM
