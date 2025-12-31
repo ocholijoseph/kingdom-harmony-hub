@@ -73,10 +73,10 @@ const ContactSection = () => {
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Email</p>
                     <a
-                      href="mailto:info@kingdomfmxtra.com"
+                      href="mailto:info@kingdomfm.live"
                       className="text-foreground hover:text-primary transition-colors"
                     >
-                      info@kingdomfmxtra.com
+                      info@kingdomfm.live
                     </a>
                   </div>
                 </div>
@@ -88,10 +88,10 @@ const ContactSection = () => {
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Phone</p>
                     <a
-                      href="tel:+1234567890"
+                      href="tel:+2348167594277"
                       className="text-foreground hover:text-secondary transition-colors"
                     >
-                      +1 (234) 567-890
+                      08167594277
                     </a>
                   </div>
                 </div>
