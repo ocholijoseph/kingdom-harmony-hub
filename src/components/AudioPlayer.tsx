@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Play, Pause, Volume2, VolumeX, Radio } from "lucide-react";
 
 interface AudioPlayerProps {
@@ -10,7 +10,27 @@ const AudioPlayer = ({ streamUrl = "https://player.dreamcode.ng/radio2" }: Audio
   const [volume, setVolume] = useState(0.8);
   const [isMuted, setIsMuted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+
+  // Create audio element with cache-busting to avoid Chrome caching issues
+  const createAudioElement = useCallback(() => {
+    const audio = new Audio();
+    audio.crossOrigin = "anonymous";
+    audio.preload = "none";
+    // Add timestamp to bypass Chrome's aggressive caching
+    audio.src = `${streamUrl}?t=${Date.now()}`;
+    audio.volume = isMuted ? 0 : volume;
+    
+    audio.addEventListener("ended", () => setIsPlaying(false));
+    audio.addEventListener("error", (e) => {
+      console.error("Audio error:", e);
+      setIsPlaying(false);
+      setIsLoading(false);
+    });
+    
+    return audio;
+  }, [streamUrl, volume, isMuted]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -18,22 +38,53 @@ const AudioPlayer = ({ streamUrl = "https://player.dreamcode.ng/radio2" }: Audio
     }
   }, [volume, isMuted]);
 
-  const togglePlay = async () => {
-    if (!audioRef.current) return;
-
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      setIsLoading(true);
-      try {
-        await audioRef.current.play();
-        setIsPlaying(true);
-      } catch (error) {
-        console.error("Error playing audio:", error);
-      } finally {
-        setIsLoading(false);
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = "";
+        audioRef.current = null;
       }
+      if (audioContextRef.current) {
+        audioContextRef.current.close();
+      }
+    };
+  }, []);
+
+  const togglePlay = async () => {
+    if (isPlaying && audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.src = "";
+      audioRef.current = null;
+      setIsPlaying(false);
+      return;
+    }
+
+    setIsLoading(true);
+    
+    try {
+      // Resume AudioContext for Chrome (required after user gesture)
+      if (!audioContextRef.current) {
+        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+      }
+      if (audioContextRef.current.state === "suspended") {
+        await audioContextRef.current.resume();
+      }
+
+      // Create fresh audio element for each play session
+      const audio = createAudioElement();
+      audioRef.current = audio;
+
+      // Load and play
+      audio.load();
+      await audio.play();
+      setIsPlaying(true);
+    } catch (error) {
+      console.error("Error playing audio:", error);
+      setIsPlaying(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -146,17 +197,6 @@ const AudioPlayer = ({ streamUrl = "https://player.dreamcode.ng/radio2" }: Audio
         </div>
       </div>
 
-      {/* Hidden audio element */}
-      <audio
-        ref={audioRef}
-        src={streamUrl}
-        preload="none"
-        onEnded={() => setIsPlaying(false)}
-        onError={() => {
-          setIsPlaying(false);
-          setIsLoading(false);
-        }}
-      />
     </div>
   );
 };
