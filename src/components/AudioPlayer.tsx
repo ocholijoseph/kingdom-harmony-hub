@@ -5,7 +5,7 @@ interface AudioPlayerProps {
   streamUrl?: string;
 }
 
-const AudioPlayer = ({ streamUrl = "https://stream.zeno.fm/yn65fsaurfhvv" }: AudioPlayerProps) => {
+const AudioPlayer = ({ streamUrl = "https://player2.dreamcode.ng/kfmx" }: AudioPlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.8);
   const [isMuted, setIsMuted] = useState(false);
