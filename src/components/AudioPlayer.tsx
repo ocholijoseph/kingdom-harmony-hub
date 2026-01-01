@@ -5,28 +5,32 @@ interface AudioPlayerProps {
   streamUrl?: string;
 }
 
-const AudioPlayer = ({ streamUrl = "https://player.dreamcode.ng/radio2" }: AudioPlayerProps) => {
+const AudioPlayer = ({ streamUrl = "https://stream.zeno.fm/yn65fsaurfhvv" }: AudioPlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.8);
   const [isMuted, setIsMuted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
 
-  // Create audio element with cache-busting to avoid Chrome caching issues
+  // Create audio element - removed crossOrigin for better compatibility with Icecast streams
   const createAudioElement = useCallback(() => {
     const audio = new Audio();
-    audio.crossOrigin = "anonymous";
     audio.preload = "none";
-    // Add timestamp to bypass Chrome's aggressive caching
-    audio.src = `${streamUrl}?t=${Date.now()}`;
+    // Use stream URL directly without cache-busting for Icecast compatibility
+    audio.src = streamUrl;
     audio.volume = isMuted ? 0 : volume;
     
     audio.addEventListener("ended", () => setIsPlaying(false));
     audio.addEventListener("error", (e) => {
       console.error("Audio error:", e);
+      setError("Unable to connect to stream. Please try again.");
       setIsPlaying(false);
       setIsLoading(false);
+    });
+    audio.addEventListener("canplay", () => {
+      setError(null);
     });
     
     return audio;
@@ -187,6 +191,13 @@ const AudioPlayer = ({ streamUrl = "https://player.dreamcode.ng/radio2" }: Audio
             />
           </div>
         </div>
+
+        {/* Error message */}
+        {error && (
+          <div className="mt-4 text-center text-sm text-destructive">
+            {error}
+          </div>
+        )}
 
         {/* Stream info */}
         <div className="mt-6 pt-6 border-t border-border flex items-center justify-center gap-2 text-muted-foreground">
